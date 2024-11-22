@@ -1,0 +1,30 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{%static 'css/crearLibroFisico.css'%}" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="type" id="book-type" value="fisico" />
+
+            <label for="id_titulo">Titulo:</label>
+            {{form.titulo}}
+
+            <label for="id_autor">Autor:</label>
+            {{form.autor}}
+
+            <label for="id_anio_publicacion">Fecha de publicacion:</label>
+            {{form.anio_publicacion}}
+
+            <label for="id_num_paginas">Numero de Paginas:</label>
+            {{form.num_paginas}}
+
+            <button type="submit">Guardar</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,110 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://kit.fontawesome.com/499df900a3.js" crossorigin="anonymous"></script>
+        <script src="{%static 'js/form.js'%}"></script>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <title>Inicio</title>
+    </head>
+    <body>
+        <header>
+            <h1><a href="/">Sistema biblioteca</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="{% url 'buscar_libros' %}">Buscar Libros</a></li>
+                    <button id="show-form">Agregar libro</button>
+                </ul>
+            </nav>
+            
+        </header>
+
+        <div id="modal" class="modal">
+            <h3>Seleccione el tipo de libro</h3>
+            <div>
+                <input type="radio" name="type" class="radio" value="fisico" />
+                Fisico
+            </div>
+            <div>
+                <input type="radio" name="type" class="radio" value="digital" />
+                Digital
+            </div>
+
+            <div id="form-container" class="form"></div>
+            <button popovertarget="form" popovertargetaction="hide" class="close-btn">Cerrar</button>
+        </div>
+        <main>
+            {%block content%}
+            <div class="libros_fisicos">
+                <h2>Libros Físicos</h2>
+                <ul class="sep-fis">
+                    <li>Titulo</li>
+                    <li>Autor</li>
+                    <li>Fecha</li>
+                    <li>Paginas</li>
+                </ul>
+                <ul>
+                    {% for libro in libros_fisicos %}
+                    <li class="libro_card">
+                        <p>{{ libro.titulo }}</p>
+                        <p>{{ libro.autor }}</p>
+                        <p>{{ libro.anio_publicacion }}</p>
+                        <p>{{ libro.num_paginas }}</p>
+                        <div class="opts">
+                            <a href="{% url 'editar_libro' libro.id 'fisico' %}">
+                                <i class="fa-solid fa-pen-to-square fa-2xl" style="color: #74c0fc"></i>
+                            </a>
+                            <a href="{% url 'eliminar_libro' libro.id 'fisico' %}">
+                                <i class="fa-solid fa-trash fa-2xl" style="color: #ff0000"></i>
+                            </a>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li>No hay libros físicos disponibles.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="libros_digitales">
+                <h2>Libros Digitales</h2>
+                <ul class="sep-dig">
+                    <li>Titulo</li>
+                    <li>Autor</li>
+                    <li>Fecha</li>
+                    <li>Tamaño</li>
+                    <li>Formato</li>
+                </ul>
+                <ul>
+                    {% for libro in libros_digitales %}
+                    <li class="libro_card_dig">
+                        <p>{{ libro.titulo }}</p>
+                        <p>{{ libro.autor }}</p>
+                        <p>{{ libro.anio_publicacion }}</p>
+                        <p>{{ libro.tamanio_mb }} MB</p>
+                        <p>{{ libro.formato }}</p>
+                        <div class="opts">
+                            <a href="{% url 'editar_libro' libro.id 'digital' %}">
+                                <i class="fa-solid fa-pen-to-square fa-2xl" style="color: #74c0fc"></i>
+                            </a>
+                            <a href="{% url 'eliminar_libro' libro.id 'digital' %}">
+                                <i class="fa-solid fa-trash fa-2xl" style="color: #ff0000"></i>
+                            </a>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li>No hay libros digitales disponibles.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {%endblock%}
+        </main>
+
+        <footer>
+            <p>&copy;2024. Todos los derechos reservados. Sistema Biblioteca</p>
+        </footer>
+    </body>
+</html>

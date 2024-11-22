@@ -1,0 +1,28 @@
+    {%load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="stylesheet" href="{% static 'css/confirm.css'%}" />
+            <title>Document</title>
+        </head>
+        <body>
+            <header>
+                <h1>Sistema Biblioteca</h1>
+            </header>
+            <div class="content">
+                <h2>Eliminar Libro</h1>
+                <p>
+                    ¿Estás seguro de que deseas eliminar este libro:
+                    <strong>{{ libro.titulo }}</strong>
+                    ?
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit">Confirmar</button>
+                    <a href="/">Cancelar</a>
+                </form>
+            </div>
+        </body>
+    </html>

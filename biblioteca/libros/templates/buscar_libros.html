@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Buscar Libros</h2>
+<form method="GET" action="{% url 'buscar_libros' %}">
+    <input type="text" name="q" value="{{ query }}" placeholder="Buscar por título o autor" />
+    <button type="submit">Buscar</button>
+</form>
+
+{% if query %}
+    <h3>Resultados para "{{ query }}"</h3>
+    
+    <h4>Libros Físicos</h4>
+    <ul>
+        {% for libro in resultados_fisicos %}
+            <li>
+                {{ libro.titulo }} por {{ libro.autor }}
+                <p><a href="{% url 'editar_libro' libro.id 'fisico' %}">Editar</a></p>
+            </li>
+        {% empty %}
+            <li>No se encontraron libros físicos.</li>
+        {% endfor %}
+    </ul>
+    
+    <h4>Libros Digitales</h4>
+    <ul>
+        {% for libro in resultados_digitales %}
+            <li>
+                {{ libro.titulo }} por {{ libro.autor }}
+                <p><a href="{% url 'editar_libro' libro.id 'digital' %}">Editar</a></p>
+            </li>
+        {% empty %}
+            <li>No se encontraron libros digitales.</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
